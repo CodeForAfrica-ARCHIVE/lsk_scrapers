@@ -1,0 +1,7 @@
+*.pyc
+*.DS_Store
+*.egg-info
+*.sqlite3
+*.pid
+*.log
+logs/
