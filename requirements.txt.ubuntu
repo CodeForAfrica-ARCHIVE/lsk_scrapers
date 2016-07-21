@@ -1,3 +1,6 @@
 requests==2.9.1
 dataset
 MySQL-python
+Twisted==16.1.1
+https://github.com/CodeForAfricaLabs/smstools/tarball/master
+twilio==5.4.0
