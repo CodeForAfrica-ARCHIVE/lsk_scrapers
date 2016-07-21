@@ -7,8 +7,7 @@ API_KEY = os.getenv("IMPORTIO_API_KEY")
 #API = "https://api.import.io/store/connector/_magic?url={url}&format=JSON&js=false&_apikey={apikey}&_apikey={apikey}"
 API = "https://api.import.io/store/connector/_magic?url={url}&format=JSON&js=false&_apikey={apikey}"
 SOURCE = "http://online.lsk.or.ke/index.php/index.php?option=com_content&id=4&catid=8&qw=active&finder=Active&view=article&base=%s"
-#PAGES = 204 # Get this from the site
-PAGES = 2 # Get this from the site
+PAGES = 204 # Get this from the site
 TIMEOUT = 35 # Request timeout in seconds
 
 
