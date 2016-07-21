@@ -1,6 +1,5 @@
-import os
-import dataset
-import requests
+import os, dataset, requests
+from datetime import datetime
 from urllib import quote
 from lsk_scrapers.config import DATABASE
 
@@ -35,7 +34,9 @@ class LSKScraper(object):
                     url=quote(self.source % page),
                     apikey=self.apikey
                     )
+            start = datetime.now()
             response = requests.get(self.api.format(**args), timeout=TIMEOUT)
+            print "timer - http - %s seconds" % (datetime.now() - start).seconds
             response.raise_for_status()
             resp = response.json()
             results = resp['tables'][0]['results']
@@ -52,7 +53,9 @@ class LSKScraper(object):
                     result.pop("content_1")
                     result.pop("content_2")
 
+                    start = datetime.now()
                     self.persist(result)
+                    print "timer - db - %s seconds" % (datetime.now() - start).seconds
 
                 except:
                     print "ERROR: Skipped %s" % result
