@@ -1,7 +1,8 @@
 import os
-import redis
+import dataset
 import requests
 from urllib import quote
+from lsk_scrapers.config import DATABASE
 
 API_KEY = os.getenv("IMPORTIO_API_KEY")
 #API = "https://api.import.io/store/connector/_magic?url={url}&format=JSON&js=false&_apikey={apikey}&_apikey={apikey}"
@@ -10,25 +11,24 @@ SOURCE = "http://online.lsk.or.ke/index.php/index.php?option=com_content&id=4&ca
 #PAGES = 204 # Get this from the site
 PAGES = 2 # Get this from the site
 TIMEOUT = 35 # Request timeout in seconds
-redis_host = os.getenv('REDIS_HOST', 'localhost:6379')
-REDIS = dict(
-        host=redis_host.split(':')[0],
-        port=redis_host.split(':')[1],
-        db='4',
-        password=os.getenv('REDIS_PASSWORD', None),
-        socket_timeout=2,
-        socket_connect_timeout=2,
-        )
 
 
 class LSKScraper(object):
     def __init__(self,):
         self.api = API
         self.apikey = API_KEY
-        self.db = redis.StrictRedis(**REDIS)
-        self.db_prefix = "lsk-"
         self.source = SOURCE
 
+        self.db = dataset.connect("mysql://{username}:{password}@{host}".format(**DATABASE))
+
+    def persist(self, json_data):
+        '''
+        save to db
+        '''
+        dbtable = self.db[DATABASE['table']]
+        dbresp = dbtable.insert(json_data)
+        print "db said %s for %s" % (str(dbresp), json_data)
+    
     def scrape_page(self, page):
         try:
             args = dict(
@@ -52,7 +52,8 @@ class LSKScraper(object):
                     result.pop("content_1")
                     result.pop("content_2")
 
-                    print result
+                    self.persist(result)
+
                 except:
                     print "ERROR: Skipped %s" % result
             print "Extracted %s names from page %s" % (len(results), page)
@@ -70,6 +71,7 @@ def main():
     for page in range(1, PAGES+1):
         print "scraping page %s" % str(page)
         results = lsk.scrape_page(str(page))
+
 
 
 if __name__ == "__main__":
