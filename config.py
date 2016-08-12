@@ -15,10 +15,16 @@ API = dict(
         )
 MESSAGES = dict(
         miss="No records found",
-        hit="{name} is a registured lawyer with license number {number}. Status: {value}. More details: {link_1}"
+        one="{name} is a registured lawyer with license number {number}. Status: {value}. More details: {link}",
+        count="Found {count} results matching your query\n",
+        multi="{name} - {number} - {active} \n"
         )
 SMS = dict(
         port=6066,
         threads=30,
         logs='log-twistd-sms.log'
+        )
+CLOUDSEARCH = dict(
+        url=os.getenv("CLOUDSEARCH_URL"),
+        parser="simple"
         )
