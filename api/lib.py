@@ -55,7 +55,7 @@ def construct_message(resp):
         return MESSAGES["miss"]
     else:
         if resp.get("count") == 1:
-            return MESSAGES["one"].format(**resp[0]["fields"])
+            return MESSAGES["one"].format(**resp["resp"][0]["fields"])
         else:
             message = ""
             for entry in resp["resp"]:
