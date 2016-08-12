@@ -16,7 +16,7 @@ API = dict(
 MESSAGES = dict(
         miss="No records found",
         one="{name} is a registured lawyer with license number {number}. Status: {value}. More details: {link}",
-        count="Found {count} results matching your query\n",
+        count="Found {count} results matching your query. Refine your query by providing more names?\n",
         multi="{name} - {number} - {value} \n"
         )
 SMS = dict(
