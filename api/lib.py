@@ -60,4 +60,4 @@ def construct_message(resp):
             message = ""
             for entry in resp["resp"]:
                 message += MESSAGES["multi"].format(**entry["fields"])
-            return MESSAGES["count"] + message
+            return MESSAGES["count"].format(**resp) + message
