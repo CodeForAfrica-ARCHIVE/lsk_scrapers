@@ -1,8 +1,8 @@
 Objective: Enable anyone to look up (via SMS) lawyers by name - against the list of registered lawyers in Kenya.
 
-## Components
+# Components
 
-1. SMS listener
+## SMS listener
 A Twistd web service that receives messages from Twilio.
 * Location: "./sms_proxy"
 * Start: twistd -y site.py
@@ -10,7 +10,7 @@ A Twistd web service that receives messages from Twilio.
 * Log location: "sms_proxy/logs"
 
 
-2. Query API
+## Query API
 Queries Cloudsearch and returns results matching the query "name"
 * Location: "./api"
 * API endpoint: "/lsk"
